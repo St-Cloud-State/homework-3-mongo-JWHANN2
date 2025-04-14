@@ -1,0 +1,116 @@
+Script started on 2025-04-14 23:07:29+00:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="69" LINES="15"]
+[0;32m@JWHANN2 [0m➜ [1;34m/workspaces/homework-3-mongo-JWHANN2 [0;36m([1;31mmain[0;36m) [0m$ mongosh
+bash: mongosh: command not found
+[0;32m@JWHANN2 [1;31m➜ [1;34m/workspaces/homework-3-mongo-JWHANN2 [0;36m([1;31mmain[0;36m) [0m$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("7b2e7a2f-4241-4872-940e-064c7e31b833") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] 
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] 
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] 
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2025-04-14T23:06:29.392+0000 I CONTROL  [initandlisten] 
+> use acme_loans[3G[Juse acme_loans[17G
+switched to db acme_loans
+> db.applications.insertOne({[3G[Jdb.applications.insertOne({[30G
+...   application_id: "123456",[5G[J  application_id: "123456",[32G
+...   name: "John Doe",[5G[J  name: "John Doe",[24G
+...   zipcode: "12345",[5G[J  zipcode: "12345",[24G
+...   status: "received",[5G[J  status: "received",[26G
+...   notes: [][5G[J  notes: [][16G
+... });[5G[J});[8G
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("67fd955a14ef55d7ef449bb5")
+}
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { application_id: "123456" },[5G[J  { application_id: "123456" },[36G
+...   { $set: { status: "processing" } }[5G[J  { $set: { status: "processing" } }[41G
+... );[5G[J);[7G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> [3G[J[3G
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { application_id: "123456" },[5G[J  { application_id: "123456" },[36G
+...   { $push: {[5G[J  { $push: {[17G
+...     notes: {[5G[J    notes: {[17G
+...       phase: "credit_check",[5G[J      phase: "credit_check",[33G
+...       message: "Credit score under review",[5G[J      message: "Credit score under review",[48G
+...       timestamp: new Date()[5G[J      timestamp: new Date()[32G
+...     }[5G[J    }[10G
+...   }}[5G[J  }}[9G
+... );[5G[J);[7G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { application_id: "123456" },[5G[J  { application_id: "123456" },[36G
+...   {[5G[J  {[8G
+...     $set: { status: "accepted" },[5G[J    $set: { status: "accepted" },[38G
+...     $push: {[5G[J    $push: {[17G
+...       notes: {[5G[J      notes: {[19G
+...         phase: "loan_terms",[5G[J        phase: "loan_terms",[33G
+...         message: "Interest rate: 3.5%, term: 15 years",[5G[J        message: "Interest rate: 3.5%, term: 15 years",[60G
+...         timestamp: new Date()[5G[J        timestamp: new Date()[34G
+...       }[5G[J      }[12G
+...     }[5G[J    }[10G
+...   }[5G[J  }[8G
+... );[5G[J);[7G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.applications.insertOne({[3G[Jdb.applications.insertOne({[30G
+...   application_id: "123457",[5G[J  application_id: "123457",[32G
+...   name: "Jane Smith",[5G[J  name: "Jane Smith",[26G
+...   zipcode: "67890",[5G[J  zipcode: "67890",[24G
+...   status: "rejected",[5G[J  status: "rejected",[26G
+...   notes: [{[5G[J  notes: [{[16G
+...     phase: "rejection_reason",[5G[J    phase: "rejection_reason",[35G
+...     message: "Insufficient credit history",[5G[J    message: "Insufficient credit history",[48G
+...     timestamp: new Date()[5G[J    timestamp: new Date()[30G
+...   }][5G[J  }][9G
+... });[5G[J});[8G
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("67fd957a14ef55d7ef449bb6")
+}
+> db.applications.find().pretty()[3G[Jdb.applications.find().pretty()[34G
+{
+	"_id" : ObjectId("67fd955a14ef55d7ef449bb5"),
+	"application_id" : "123456",
+	"name" : "John Doe",
+	"zipcode" : "12345",
+	"status" : "accepted",
+	"notes" : [
+		{
+			"phase" : "credit_check",
+			"message" : "Credit score under review",
+			"timestamp" : ISODate("2025-04-14T23:08:24.571Z")
+		},
+		{
+			"phase" : "loan_terms",
+			"message" : "Interest rate: 3.5%, term: 15 years",
+			"timestamp" : ISODate("2025-04-14T23:08:32.748Z")
+		}
+	]
+}
+{
+	"_id" : ObjectId("67fd957a14ef55d7ef449bb6"),
+	"application_id" : "123457",
+	"name" : "Jane Smith",
+	"zipcode" : "67890",
+	"status" : "rejected",
+	"notes" : [
+		{
+			"phase" : "rejection_reason",
+			"message" : "Insufficient credit history",
+			"timestamp" : ISODate("2025-04-14T23:08:42.540Z")
+		}
+	]
+}
+> exit[3G[Jexit[7G
+bye
+[0;32m@JWHANN2 [0m➜ [1;34m/workspaces/homework-3-mongo-JWHANN2 [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-04-14 23:10:04+00:00 [COMMAND_EXIT_CODE="0"]
