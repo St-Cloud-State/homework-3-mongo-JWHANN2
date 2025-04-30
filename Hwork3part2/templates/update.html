@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head><title>Update Status</title></head>
+<body>
+  <h2>Update Loan Application Status</h2>
+  <form method="POST">
+    Application ID: <input name="app_id" required><br>
+
+    New Status:
+    <select name="new_status" required>
+      <option value="received">received</option>
+      <option value="processing">processing</option>
+      <option value="accepted">accepted</option>
+      <option value="rejected">rejected</option>
+    </select><br>
+
+    Subphase (if processing):
+    <select name="subphase">
+      <option value="">-- Optional --</option>
+      <option value="personal_check">Personal Details Check</option>
+      <option value="credit_check">Credit Check</option>
+      <option value="certification_check">Certification Check</option>
+    </select><br>
+
+    Note / Reason / Terms: <br>
+    <textarea name="note" rows="4" cols="50"></textarea><br>
+
+    <button type="submit">Update</button>
+  </form>
+
+  <p>{{ message }}</p>
+
+  <hr>
+  <a href="/">Submit New Application</a> |
+  <a href="/status">Check Status</a>
+</body>
+</html>

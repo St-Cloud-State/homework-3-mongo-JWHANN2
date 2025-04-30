@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Check Status</title></head>
+<body>
+  <h2>Check Loan Application Status</h2>
+  <form method="POST">
+    Application ID: <input name="app_id" required><br>
+    <button type="submit">Check Status</button>
+  </form>
+
+  {% if status %}
+    <h3>Status: {{ status }}</h3>
+    {% if notes %}
+      <h4>Notes:</h4>
+      <ul>
+        {% for note in notes %}
+          <li><strong>{{ note.type }}</strong> ({{ note.timestamp }}): {{ note.message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endif %}
+
+  <hr>
+  <a href="/">Submit New Application</a> |
+  <a href="/update">Update Status</a>
+</body>
+</html>
+
